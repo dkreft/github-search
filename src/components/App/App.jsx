@@ -1,9 +1,16 @@
 import PropTypes from 'prop-types'
+import { Provider } from 'next-auth/client'
+
+import GateKeeper from './GateKeeper'
 
 
-export default function App({ Component, pageProps }) {
+export default function App ({ Component, pageProps }) {
   return (
-    <Component { ...pageProps } />
+    <Provider session={ pageProps.session }>
+      <GateKeeper>
+        <Component { ...pageProps } />
+      </GateKeeper>
+    </Provider>
   )
 }
 
