@@ -10,8 +10,8 @@ export default function handleRequest(req, res) {
   return nextAuth(req, res, {
     providers: [
       Providers.GitHub({
-        clientId: process.env.GITHUB_ID,
-        clientSecret: process.env.GITHUB_SECRET
+        clientId: process.env.NEXT_PUBLIC_GITHUB_ID,
+        clientSecret: process.env.NEXT_PUBLIC_GITHUB_SECRET,
       }),
     ],
     callbacks,
