@@ -8,13 +8,19 @@ import {
 
 import { setContext } from '@apollo/client/link/context'
 
+const URI = process.env.NEXT_PUBLIC_CLIENT_ENDPOINT
 
-const httpLink = createHttpLink({
-  uri: process.env.NEXT_PUBLIC_CLIENT_ENDPOINT,
-});
 
-export function makeClient(user) {
-  const { accessToken } = user
+/**
+ * @param {String} accessToken
+ *
+ * @returns {ApolloClient}
+ */
+export function makeClient(accessToken) {
+  const httpLink = createHttpLink({
+    uri: URI,
+  })
+
   const authorization = `Bearer ${ accessToken }`
 
   const authLink = setContext((_, { headers }) => {
