@@ -22,12 +22,14 @@
     "react-dom": "16.13.1"
   },
   "devDependencies": {
+    "@apollo/client": "^3.1.4",
     "@zeit/next-sass": "^1.0.1",
     "babel-eslint": "^10.1.0",
     "bdd-lazy-var": "^2.5.4",
     "bufferutil": "^4.0.1",
     "canvas": "^2.6.1",
     "classnames": "^2.2.6",
+    "dotenv": "^8.2.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^7.6.0",
@@ -36,6 +38,7 @@
     "eslint-plugin-react-hooks": "^4.0.8",
     "eslint-plugin-react-perf": "^3.2.4",
     "fibers": "^5.0.0",
+    "graphql": "^15.3.0",
     "husky": "^4.2.5",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.2.2",
