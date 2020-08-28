@@ -1,4 +1,10 @@
 import { useCallback } from 'react'
+
+import {
+  useSession,
+  signOut
+} from 'next-auth/client'
+
 import Head from 'next/head'
 import { useLazyQuery, gql } from '@apollo/client'
 
@@ -60,7 +66,14 @@ export default function HomePage() {
   }, [getUserRepos])
 
   console.log({ data })
-  
+
+  const [session] = useSession()
+
+  const {
+    image,
+    name,
+  } = session.user
+
   return (
     <div className={ Styles.container }>
       <Head>
@@ -68,11 +81,21 @@ export default function HomePage() {
       </Head>
 
       <main className={ Styles.main }>
-        Username:
-        <input
-          type="text"
-          onKeyPress={ onKeyPress }
-        />
+        <div>
+          <img src={ image } alt="" />
+          { name }
+          <button onClick={ signOut }>
+            Sign out
+          </button>
+        </div>
+
+        <div>
+          Username:
+          <input
+            type="text"
+            onKeyPress={ onKeyPress }
+          />
+        </div>
         {
           loading && (<p><b>Loading</b></p>)
         }
@@ -80,7 +103,7 @@ export default function HomePage() {
           error && (<pre>ERROR: { JSON.stringify(error, '', 2) }</pre>)
         }
         <pre>
-          { JSON.stringify(data) }
+          { JSON.stringify(data, '', 2) }
         </pre>
       </main>
     </div>
