@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types'
 import { Provider } from 'next-auth/client'
 
+import Layout from 'components/Layout'
+
 import ApolloProviderWrapper from './ApolloProviderWrapper'
 import GateKeeper from './GateKeeper'
 
@@ -10,7 +12,9 @@ export default function App({ Component, pageProps }) {
     <Provider session={ pageProps.session }>
       <GateKeeper>
         <ApolloProviderWrapper>
-          <Component { ...pageProps } />
+          <Layout>
+            <Component { ...pageProps } />
+          </Layout>
         </ApolloProviderWrapper>
       </GateKeeper>
     </Provider>

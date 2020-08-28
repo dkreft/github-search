@@ -1,6 +1,8 @@
 import { Provider } from 'next-auth/client'
 import { shallow } from 'enzyme'
 
+import Layout from 'components/Layout'
+
 import ApolloProviderWrapper from './ApolloProviderWrapper'
 import App from './App'
 import GateKeeper from './GateKeeper'
@@ -57,10 +59,18 @@ describe('<App />', () => {
           expect($subject).toExist()
         })
 
-        it('has the expected children', () => {
-          expect($subject.children()).toContainReact(
-            <Component { ...pageProps } />
-          )
+        describe('the <Layout />', () => {
+          subject(() => $subject.find(Layout))
+
+          it('exists', () => {
+            expect($subject).toExist()
+          })
+
+          it('has the expected children', () => {
+            expect($subject.children()).toContainReact(
+              <Component { ...pageProps } />
+            )
+          })
         })
       })
     })
