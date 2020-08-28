@@ -8,6 +8,7 @@ import Head from 'next/head'
 import { useLazyQuery, gql } from '@apollo/client'
 
 import Input from './Input'
+import UserSearchResults from './UserSearchResults'
 
 import Styles from './styles.module.sass'
 
@@ -16,10 +17,13 @@ const QUERY = gql(`
     user(login: $login) {
       id
       name
+      avatarUrl
+      url
       repositories(last: 100) {
         edges {
           node {
             name
+            description
             url
           }
         }
@@ -63,28 +67,29 @@ export default function HomePage() {
   return (
     <div className={ Styles.container }>
       <Head>
-        <title>Search GitHub</title>
+        <title>GURST</title>
       </Head>
 
-      <main className={ Styles.main }>
-        <div>
-          Username:
-          <Input
-            type="text"
-            handleKeyPress={ handleKeyPress }
-            ref={ inputRef }
-          />
-        </div>
-        {
-          loading && (<p><b>Loading</b></p>)
-        }
-        {
-          error && (<pre>ERROR: { JSON.stringify(error, '', 2) }</pre>)
-        }
-        <pre>
-          { JSON.stringify(data, '', 2) }
-        </pre>
-      </main>
+      <h1 className="pageTitle">
+        GitHub User Search
+      </h1>
+
+      <label>
+        <span className={ Styles.userLabel }>
+          Username
+        </span>
+        <Input
+          type="text"
+          handleKeyPress={ handleKeyPress }
+          ref={ inputRef }
+        />
+      </label>
+
+      <UserSearchResults
+        loading={ loading }
+        error={ error }
+        data={ data }
+      />
     </div>
   )
 }
