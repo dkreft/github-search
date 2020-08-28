@@ -1,14 +1,19 @@
 import PropTypes from 'prop-types'
-import { ApolloProvider } from '@apollo/client'
+import { Provider } from 'next-auth/client'
 
-import client from 'lib/client'
+import ApolloProviderWrapper from './ApolloProviderWrapper'
+import GateKeeper from './GateKeeper'
 
 
-export default function App ({ Component, pageProps }) {
+export default function App({ Component, pageProps }) {
   return (
-    <ApolloProvider client={ client }>
-      <Component { ...pageProps } />
-    </ApolloProvider>
+    <Provider session={ pageProps.session }>
+      <GateKeeper>
+        <ApolloProviderWrapper>
+          <Component { ...pageProps } />
+        </ApolloProviderWrapper>
+      </GateKeeper>
+    </Provider>
   )
 }
 
