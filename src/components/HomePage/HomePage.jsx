@@ -1,7 +1,13 @@
-import { useCallback } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useRef,
+} from 'react'
 
 import Head from 'next/head'
 import { useLazyQuery, gql } from '@apollo/client'
+
+import Input from './Input'
 
 import Styles from './styles.module.sass'
 
@@ -27,6 +33,8 @@ const QUERY = gql(`
 `)
 
 export default function HomePage() {
+  const inputRef = useRef()
+
   const [
     getUserRepos,
     {
@@ -36,26 +44,21 @@ export default function HomePage() {
     }
   ] = useLazyQuery(QUERY)
 
-  const onKeyPress = useCallback((e) => {
-    e.stopPropagation()
-
-    const {
-      target: {
-        value: login,
-      },
-      key,
-    } = e
-
+  const handleKeyPress = useCallback(({ value, key }) => {
     if ( key !== 'Enter' ) {
       return
     }
 
     getUserRepos({
       variables: {
-        login,
+        login: value,
       }
     })
   }, [getUserRepos])
+
+  useEffect(() => {
+    inputRef.current.focus()
+  }, [])
 
   return (
     <div className={ Styles.container }>
@@ -66,9 +69,10 @@ export default function HomePage() {
       <main className={ Styles.main }>
         <div>
           Username:
-          <input
+          <Input
             type="text"
-            onKeyPress={ onKeyPress }
+            handleKeyPress={ handleKeyPress }
+            ref={ inputRef }
           />
         </div>
         {
@@ -80,7 +84,6 @@ export default function HomePage() {
         <pre>
           { JSON.stringify(data, '', 2) }
         </pre>
-
       </main>
     </div>
   )
