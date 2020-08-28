@@ -8,8 +8,10 @@ import { makeClient } from './lib/client'
 export default function ApolloProviderWrapper({ children }) {
   const [session] = useSession()
 
+  const client = makeClient(session.user.accessToken)
+
   return (
-    <ApolloProvider client={ makeClient(session.user) }>
+    <ApolloProvider client={ client }>
       { children }
     </ApolloProvider>
   )
