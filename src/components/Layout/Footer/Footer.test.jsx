@@ -1,9 +1,8 @@
-import React from 'react'
-
 import { shallow } from 'enzyme'
 
 import Footer from './Footer'
 import Styles from './styles.module.sass'
+
 
 describe('<Footer />', () => {
   def('component', () => shallow(<Footer />))
