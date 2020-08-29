@@ -15,12 +15,6 @@ export default function UserSearchResults({ data, loading, error, handleLoadMore
     )
   }
 
-  if ( loading ) {
-    return (
-      <b>Loading...</b>
-    )
-  }
-
   if ( error ) {
     // TODO: make this pretty
     return (

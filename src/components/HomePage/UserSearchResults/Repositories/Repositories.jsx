@@ -7,7 +7,7 @@ export default function Repositories({ repositories }) {
   const {
     edges,
     totalCount,
-  } = repositories || {}
+  } = repositories
 
   const things = ( totalCount === 1 ) ? 'repository' : 'repositories'
 
@@ -22,6 +22,8 @@ export default function Repositories({ repositories }) {
 }
 
 // TODO: I'm not really happy about how deep this object is.
+// This is the kind of thing that I would normally take care of
+// in a Redux reducer but alas, I'm not using Redux.
 // I looked for a way to implement a transform in the Apollo
 // docs, but didn't see anything immediately relevant.
 Repositories.propTypes = {

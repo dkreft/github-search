@@ -15,6 +15,7 @@ describe('<ApolloProviderWrapper />', () => {
   const client = 'alsdfkasdflkj'
   const session = {
     user: {
+      accessToken: 'aoweirasldfghagsdhufghalhf',
       name: 'adlskfjdfj',
     }
   }
@@ -41,7 +42,7 @@ describe('<ApolloProviderWrapper />', () => {
 
   it('invokes `makeClient()` with the correct arguments', () => {
     $subject
-    expect(makeClient).toHaveBeenCalledWith(session.user)
+    expect(makeClient).toHaveBeenCalledWith(session.user.accessToken)
   })
 
   it('has the expected props', () => {
