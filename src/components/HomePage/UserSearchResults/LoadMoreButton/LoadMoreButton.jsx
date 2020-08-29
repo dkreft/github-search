@@ -7,6 +7,8 @@ import {
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
 
+import Loading from '../../Loading'
+
 import Styles from './styles.module.sass'
 
 
@@ -32,21 +34,17 @@ export default function LoadMoreButton({ className, handleClick, hasMore }) {
     return null
   }
 
-  if ( isLoading ) {
-    return (
-      <b>Loading more...</b>
-    )
-  }
-
   const _className = classnames(Styles.root, className)
 
   return (
-    <button
-      className={ _className }
-      onClick={ onClick }
-    >
-      Load more...
-    </button>
+    <Loading isLoading={ isLoading }>
+      <button
+        className={ _className }
+        onClick={ onClick }
+      >
+        Load more...
+      </button>
+    </Loading>
   )
 }
 
