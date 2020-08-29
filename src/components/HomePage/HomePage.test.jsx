@@ -1,6 +1,4 @@
-import React, {
-  useRef,
-} from 'react'
+import React from 'react'
 import { mount } from 'enzyme'
 
 import Head from 'next/head'
@@ -200,6 +198,7 @@ describe('<HomePage />', () => {
   })
 })
 
+// eslint-disable-next-line react/prop-types
 function MockComponent({ children }) {
   return (
     <div>{ children }</div>

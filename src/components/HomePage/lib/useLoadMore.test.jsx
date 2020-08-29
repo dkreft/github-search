@@ -36,6 +36,7 @@ describe('useLoadMore()', () => {
   })
 })
 
+// eslint-disable-next-line react/prop-types
 function TestComponent({ fetchMore, data }) {
   const handleLoadMore = useLoadMore({
     fetchMore,
