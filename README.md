@@ -64,6 +64,7 @@ Create a user signup form prototype. Preference is for the code to be done using
 
 * ES6+
 * NextJS (React with server-side rendering)
+* Apollo (GraphQL client)
 * `eslint`
 * `jest`
 * `enzyme`
@@ -87,6 +88,8 @@ Please read [https://medium.com/@alexmngn/how-to-better-organize-your-react-appl
     * "dark mode" or other CSS shenanigans
     * i18n support
 * I opted not to implement Cypress tests, again, because of time considerations.
+* I chose to use NextJS primarily because the `next-auth` package makes integration with third-party OAuth services (e.g. GitHub) easy, and it handles all of the messy login stuff. Since the apparent goal of this project was to create a simple GitHub search page (and not to demonstrate proficiency in setting up OAuth), this seemed a reasonable choice. For this reason, and again out of time considerations, I also opted not to style the login page.
+* This was my very first use of GraphQL, and I'm sure it shows. I'm not super-thrilled with how I've used Apollo...it seems a bit messy and difficult to unit test `gql()`, and the pagination-handling code feels quite...involved. I suspect that as I gain experience with the library, cleaner solutions will present themselves, but again, time is a terrible master.
 
 ## Author
 
