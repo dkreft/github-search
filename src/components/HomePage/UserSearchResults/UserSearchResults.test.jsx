@@ -1,5 +1,6 @@
 import { shallow } from 'enzyme'
 
+import LoadMoreButton from './LoadMoreButton'
 import Repositories from './Repositories'
 import UserInfo from './UserInfo'
 import UserSearchResults from './UserSearchResults'
@@ -11,6 +12,8 @@ jest.mock('./UserInfo')
 
 
 describe('<UserSearchResults />', () => {
+  const handleLoadMore = jest.fn()
+
   def('data', () => void 0)
   def('loading', () => void 0)
   def('error', () => void 0)
@@ -19,6 +22,7 @@ describe('<UserSearchResults />', () => {
     data={ $data }
     loading={ $loading }
     error={ $error }
+    handleLoadMore={ handleLoadMore }
   />))
 
   context('when `loading` is true', () => {
@@ -52,12 +56,17 @@ describe('<UserSearchResults />', () => {
   })
 
   context('when `data` is defined', () => {
+    const pageInfo = {
+      hasNextPage: true,
+    }
+
     def('data', () => ({
       user: {
         foo: 'a;dsfksjf',
         repositories: {
           totalCount: 23,
           edges: [],
+          pageInfo,
         }
       },
     }))
@@ -84,6 +93,16 @@ describe('<UserSearchResults />', () => {
       expect($subject).toContainReact(
         <Repositories
           repositories={ $data.user.repositories }
+        />
+      )
+    })
+
+    it('contains the expected <LoadMoreButton />', () => {
+      expect($subject).toContainReact(
+        <LoadMoreButton
+          className={ Styles.loadMoreButton }
+          hasMore={ pageInfo.hasNextPage }
+          handleClick={ handleLoadMore }
         />
       )
     })
