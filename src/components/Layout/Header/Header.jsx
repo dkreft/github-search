@@ -3,6 +3,8 @@ import {
   useSession,
 } from 'next-auth/client'
 
+import Avatar from 'components/Avatar'
+
 import Styles from './styles.module.sass'
 
 
@@ -24,10 +26,9 @@ export default function Header() {
       <div className={ Styles.centerCell }>
       </div>
       <div className={ Styles.rightCell }>
-        <img
-          alt=""
+        <Avatar
           className={ Styles.avatar }
-          src={ image }
+          url={ image }
         />
         Hello, { name }.
         <button

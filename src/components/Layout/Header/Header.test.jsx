@@ -6,6 +6,8 @@ import {
 
 import { shallow } from 'enzyme'
 
+import Avatar from 'components/Avatar'
+
 import Header from './Header'
 
 import Styles from './styles.module.sass'
@@ -98,8 +100,8 @@ describe('<Header />', () => {
       })
     })
 
-    describe('the <img />', () => {
-      subject(() => $subject.find('img'))
+    describe('the <Avatar />', () => {
+      subject(() => $subject.find(Avatar))
 
       it('exists', () => {
         expect($subject).toExist()
@@ -107,9 +109,8 @@ describe('<Header />', () => {
 
       it('has the expected props', () => {
         expect($subject).toHaveProp({
-          alt: '',
           className: Styles.avatar,
-          src: image,
+          url: image,
         })
       })
     })
