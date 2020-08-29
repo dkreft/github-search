@@ -1,6 +1,8 @@
 # github-search
 
-This is a technical interview homework problem given by MasterCard—a single-page application that prompts the user to sign-in via GitHub OAuth, and once authenticated, provides a simple input that takes a GitHub username. If the entered username is valid, that user's avatar, name, and a paginated list of repsitories will be displayed.
+This is a technical interview homework problem given by MasterCard.
+
+This a single-page application that prompts the user to sign-in via GitHub OAuth, and once authenticated, provides a simple input that takes a GitHub username. If the entered username is valid, that user's avatar, name, and a paginated list of repsitories will be displayed.
 
 ## Assignment
 
