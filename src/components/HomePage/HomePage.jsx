@@ -7,6 +7,7 @@ import {
 import Head from 'next/head'
 
 import Input from './Input'
+import Loading from './Loading'
 import UserSearchResults from './UserSearchResults'
 
 import useLazyUserReposQuery from './lib/useLazyUserReposQuery'
@@ -70,12 +71,16 @@ export default function HomePage() {
         />
       </label>
 
-      <UserSearchResults
-        data={ data }
+      <Loading
+        className={ Styles.loading }
         error={ error }
-        handleLoadMore={ handleLoadMore }
-        loading={ loading }
-      />
+        isLoading={ loading }
+      >
+        <UserSearchResults
+          data={ data }
+          handleLoadMore={ handleLoadMore }
+        />
+      </Loading>
     </div>
   )
 }

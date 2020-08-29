@@ -1,13 +1,9 @@
-import React from 'react'
 import { shallow } from 'enzyme'
 
 import ErrorMessage from './ErrorMessage'
 
 import Styles from './styles.module.sass'
 
-jest.mock('lib/error-message-extractor', () => ({
-  getMessageFromError: mockGetMessageFromError,
-}))
 
 describe('<ErrorMessage/>', () => {
   const className = 'alsdkfjalsdfj'
@@ -28,10 +24,12 @@ describe('<ErrorMessage/>', () => {
   })
 
   context('when `error` is truthy', () => {
-    def('error', () => 'aldskfjfslajdf')
+    def('error', () => ({
+      message: 'aldskfjfslajdf',
+    }))
 
     it('renders the error message extracted by getMessageFromError()', () => {
-      expect($subject).toIncludeText(mockGetMessageFromError($error))
+      expect($subject).toIncludeText($error.message)
     })
 
     it('has the correct `className`', () => {
@@ -40,7 +38,3 @@ describe('<ErrorMessage/>', () => {
     })
   })
 })
-
-function mockGetMessageFromError(error) {
-  return `mockGMFE-${ error }`
-}

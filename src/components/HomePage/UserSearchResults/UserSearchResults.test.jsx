@@ -15,37 +15,11 @@ describe('<UserSearchResults />', () => {
   const handleLoadMore = jest.fn()
 
   def('data', () => void 0)
-  def('loading', () => void 0)
-  def('error', () => void 0)
 
   subject(() => shallow(<UserSearchResults
     data={ $data }
-    loading={ $loading }
-    error={ $error }
     handleLoadMore={ handleLoadMore }
   />))
-
-  context('when `loading` is true', () => {
-    def('loading', () => true)
-
-    it('renders a loading message', () => {
-      expect($subject).toContainReact(
-        <b>Loading...</b>
-      )
-    })
-  })
-
-  context('when `error` is defined', () => {
-    def('error', () => ({ message: 'foo' }))
-
-    it('dumps the pre-formated JSON', () => {
-      expect($subject).toContainReact(
-        <pre>
-          Error: { JSON.stringify($error, '', 2) }
-        </pre>
-      )
-    })
-  })
 
   context('when `data` is undefined', () => {
     def('data', () => void 0)

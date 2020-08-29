@@ -1,10 +1,13 @@
-import React, { useRef } from 'react'
+import React, {
+  useRef,
+} from 'react'
 import { mount } from 'enzyme'
 
 import Head from 'next/head'
 
 import HomePage from './HomePage'
 import Input from './Input'
+import Loading from './Loading'
 import UserSearchResults from './UserSearchResults'
 
 import useLazyUserReposQuery from './lib/useLazyUserReposQuery'
@@ -25,6 +28,7 @@ jest.mock('react', () => ({
 
 jest.mock('next/head')
 jest.mock('./Input')
+jest.mock('./Loading')
 jest.mock('./UserSearchResults')
 jest.mock('./lib/useLazyUserReposQuery')
 jest.mock('./lib/useLoadMore')
@@ -42,6 +46,7 @@ describe('<HomePage />', () => {
 
   beforeEach(() => {
     Head.mockImplementation(MockComponent)
+    Loading.mockImplementation(MockComponent)
     UserSearchResults.mockImplementation(MockComponent)
 
     useLoadMore.mockImplementation(() => handleLoadMore)
@@ -164,8 +169,8 @@ describe('<HomePage />', () => {
     })
   })
 
-  describe('the <UserSearchResults />', () => {
-    subject(() => $component.find(UserSearchResults))
+  describe('the <Loading />', () => {
+    subject(() => $component.find(Loading))
 
     it('exists', () => {
       expect($subject).toExist()
@@ -173,17 +178,30 @@ describe('<HomePage />', () => {
 
     it('has the expected props', () => {
       expect($subject).toHaveProp({
-        data,
         error,
-        handleLoadMore,
-        loading,
+        isLoading: loading,
+      })
+    })
+
+    describe('the <UserSearchResults />', () => {
+      subject(() => $subject.find(UserSearchResults))
+
+      it('exists', () => {
+        expect($subject).toExist()
+      })
+
+      it('has the expected props', () => {
+        expect($subject).toHaveProp({
+          data,
+          handleLoadMore,
+        })
       })
     })
   })
 })
 
-function MockComponent() {
+function MockComponent({ children }) {
   return (
-    <i></i>
+    <div>{ children }</div>
   )
 }

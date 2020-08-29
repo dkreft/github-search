@@ -8,22 +8,6 @@ import Styles from './styles.module.sass'
 
 
 export default function UserSearchResults({ data, loading, error, handleLoadMore }) {
-  if ( loading ) {
-    // TODO: put a spinner in here
-    return (
-      <b>Loading...</b>
-    )
-  }
-
-  if ( error ) {
-    // TODO: make this pretty
-    return (
-      <pre>
-        Error: { JSON.stringify(error, '', 2) }
-      </pre>
-    )
-  }
-
   if ( !data) {
     return null
   }

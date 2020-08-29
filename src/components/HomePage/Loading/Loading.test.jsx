@@ -1,11 +1,10 @@
-import React from 'react'
 import Loader from 'react-loader-spinner'
 
 import { shallow } from 'enzyme'
 
-import ErrorMessage from 'components/ErrorMessage'
-
+import ErrorMessage from './ErrorMessage'
 import Loading from './Loading'
+
 
 describe('<Loading/>', () => {
   const className = 'qowerlkjjfh'
