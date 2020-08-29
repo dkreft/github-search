@@ -5,36 +5,15 @@ import {
 } from 'react'
 
 import Head from 'next/head'
-import { useLazyQuery, gql } from '@apollo/client'
 
 import Input from './Input'
 import UserSearchResults from './UserSearchResults'
 
+import useLazyUserReposQuery from './lib/useLazyUserReposQuery'
+import useLoadMore from './lib/useLoadMore'
+
 import Styles from './styles.module.sass'
 
-const QUERY = gql(`
-  query UserRepos($login: String!) {
-    user(login: $login) {
-      id
-      name
-      avatarUrl
-      url
-      repositories(last: 100) {
-        edges {
-          node {
-            name
-            description
-            url
-          }
-        }
-        pageInfo {
-          endCursor
-          startCursor
-        }
-      }
-    }
-  }
-`)
 
 export default function HomePage() {
   const inputRef = useRef()
@@ -42,11 +21,12 @@ export default function HomePage() {
   const [
     getUserRepos,
     {
-      loading,
-      error,
       data,
+      error,
+      fetchMore,
+      loading,
     }
-  ] = useLazyQuery(QUERY)
+  ] = useLazyUserReposQuery()
 
   const handleKeyPress = useCallback(({ value, key }) => {
     if ( key !== 'Enter' ) {
@@ -60,12 +40,17 @@ export default function HomePage() {
     })
   }, [getUserRepos])
 
+  const handleLoadMore = useLoadMore({
+    data,
+    fetchMore,
+  })
+
   useEffect(() => {
     inputRef.current.focus()
   }, [])
 
   return (
-    <div className={ Styles.container }>
+    <div className={ Styles.root }>
       <Head>
         <title>GURST</title>
       </Head>
@@ -74,7 +59,7 @@ export default function HomePage() {
         GitHub User Search
       </h1>
 
-      <label>
+      <label className="t-inputSection">
         <span className={ Styles.userLabel }>
           Username
         </span>
@@ -86,9 +71,10 @@ export default function HomePage() {
       </label>
 
       <UserSearchResults
-        loading={ loading }
-        error={ error }
         data={ data }
+        error={ error }
+        handleLoadMore={ handleLoadMore }
+        loading={ loading }
       />
     </div>
   )
